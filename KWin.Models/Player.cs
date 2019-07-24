@@ -17,6 +17,7 @@ namespace KWin.Models
 
         public int Name { get; set; }
 
+        public string TeamId { get; set; }
         public Team Team { get; set; }
     }
 }

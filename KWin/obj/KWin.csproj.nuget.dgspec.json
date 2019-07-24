@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\source\\repos\\KWin\\KWin\\KWin.csproj": {}
+    "C:\\KWin\\KWin\\KWin\\KWin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\source\\repos\\KWin\\KWin.Models\\KWin.Models.csproj": {
+    "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\KWin\\KWin.Models\\KWin.Models.csproj",
+        "projectUniqueName": "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj",
         "projectName": "KWin.Models",
-        "projectPath": "C:\\Users\\user\\source\\repos\\KWin\\KWin.Models\\KWin.Models.csproj",
+        "projectPath": "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\KWin\\KWin.Models\\obj\\",
+        "outputPath": "C:\\KWin\\KWin\\KWin.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -56,14 +56,14 @@
         }
       }
     },
-    "C:\\Users\\user\\source\\repos\\KWin\\KWin\\KWin.csproj": {
+    "C:\\KWin\\KWin\\KWin\\KWin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\KWin\\KWin\\KWin.csproj",
+        "projectUniqueName": "C:\\KWin\\KWin\\KWin\\KWin.csproj",
         "projectName": "KWin",
-        "projectPath": "C:\\Users\\user\\source\\repos\\KWin\\KWin\\KWin.csproj",
+        "projectPath": "C:\\KWin\\KWin\\KWin\\KWin.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\KWin\\KWin\\obj\\",
+        "outputPath": "C:\\KWin\\KWin\\KWin\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -82,8 +82,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Users\\user\\source\\repos\\KWin\\KWin.Models\\KWin.Models.csproj": {
-                "projectPath": "C:\\Users\\user\\source\\repos\\KWin\\KWin.Models\\KWin.Models.csproj"
+              "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj": {
+                "projectPath": "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj"
               }
             }
           }
@@ -113,6 +113,10 @@
               "target": "Package",
               "version": "[2.2.0, )",
               "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.2.3, )"
             }
           },
           "imports": [

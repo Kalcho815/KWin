@@ -10,6 +10,7 @@ namespace KWin.Models
         {
             this.Id = new Guid().ToString();
             this.Players = new HashSet<Player>();
+            this.MatchTeams = new List<MatchTeam>();
         }
         public string Id { get; set; }
 
@@ -19,7 +20,7 @@ namespace KWin.Models
 
         public int PositionInLeague { get; set; }
 
-        public ICollection<Match> Matches { get; set; }
+        public ICollection<MatchTeam> MatchTeams { get; set; }
 
         public string League { get; set; }
     }

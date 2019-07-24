@@ -10,11 +10,11 @@ namespace KWin.Models
         {
             this.Id = new Guid().ToString();
             this.Bets = new HashSet<Bet>();
-            this.Teams = new Team[2];
+            this.MatchTeams = new List<MatchTeam>();
         }
         public string Id { get; set; }
 
-        public ICollection<Team> Teams {get;set;}
+        public ICollection<MatchTeam> MatchTeams {get;set;}
 
         public string League { get; set; }
 

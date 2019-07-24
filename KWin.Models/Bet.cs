@@ -20,10 +20,12 @@ namespace KWin.Models
 
         public double Odds { get; set; }
 
+        public string MatchId { get; set; }
         public Match Match { get; set; }
 
         public BetType BetType { get; set; }
 
-        public User Bettor { get; set; }
+        public string BettorId { get; set; }
+        public BettingUser Bettor { get; set; }
     }
 }
