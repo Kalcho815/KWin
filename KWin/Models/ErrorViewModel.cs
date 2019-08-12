@@ -1,5 +1,3 @@
-using System;
-
 namespace KWin.Models
 {
     public class ErrorViewModel

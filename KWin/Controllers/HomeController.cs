@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using KWin.Models;
 using Microsoft.AspNetCore.Mvc;
-using KWin.Models;
+using System.Diagnostics;
 
 namespace KWin.Controllers
 {

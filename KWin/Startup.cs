@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using KWin.Data;
+using KWin.Models;
+using KWin.Seeding;
+using KWin.Services;
+using KWin.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using KWin.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using KWin.Models;
+using System.Linq;
 
 namespace KWin
 {
@@ -36,7 +34,8 @@ namespace KWin
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            
+            services.AddScoped<KWinTeamsSeeder>();
+            services.AddScoped<IPlayersService, PlayersService>();
 
             services.AddDbContext<BettingDbContext>(options =>
                 options.UseSqlServer(
@@ -46,6 +45,7 @@ namespace KWin
                 .AddEntityFrameworkStores<BettingDbContext>()
                 .AddDefaultTokenProviders();
 
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -54,10 +54,8 @@ namespace KWin
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 3;
                 options.Password.RequiredUniqueChars = 0;
-
                 options.User.RequireUniqueEmail = true;
             });
-
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -77,6 +75,24 @@ namespace KWin
                 app.UseHsts();
             }
 
+            app.UseDatabaseSeeding();
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetRequiredService<BettingDbContext>())
+                {
+                    context.Database.EnsureCreated();
+
+                    if (!context.Roles.Any())
+                    {
+                        context.Roles.Add(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
+                        context.Roles.Add(new IdentityRole { Name = "User", NormalizedName = "USER" });
+                    }
+
+                    context.SaveChanges();
+                }
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -92,3 +108,5 @@ namespace KWin
         }
     }
 }
+
+

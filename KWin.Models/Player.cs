@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace KWin.Models
 {
@@ -8,16 +6,17 @@ namespace KWin.Models
     {
         public Player()
         {
-            this.Id = new Guid().ToString();
+            this.Id =  Guid.NewGuid().ToString();
+
         }
 
         public string Id { get; set; }
-        
+
         public string FullName { get; set; }
 
-        public int Name { get; set; }
+        public string? TeamId { get; set; }
 
-        public string TeamId { get; set; }
+        #nullable enable
         public Team Team { get; set; }
     }
 }

@@ -1,12 +1,6 @@
-﻿using JetBrains.Annotations;
-using KWin.Models;
+﻿using KWin.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KWin.Data
 {

@@ -1,7 +1,5 @@
 ﻿using KWin.Models.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace KWin.Models
 {
@@ -10,7 +8,7 @@ namespace KWin.Models
 
         public Bet()
         {
-            this.Id = new Guid().ToString();
+            this.Id = Guid.NewGuid().ToString();
         }
         public string Id { get; set; }
 

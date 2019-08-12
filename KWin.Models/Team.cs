@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace KWin.Models
 {
@@ -8,7 +7,7 @@ namespace KWin.Models
     {
         public Team()
         {
-            this.Id = new Guid().ToString();
+            this.Id = Guid.NewGuid().ToString();
             this.Players = new HashSet<Player>();
             this.MatchTeams = new List<MatchTeam>();
         }
