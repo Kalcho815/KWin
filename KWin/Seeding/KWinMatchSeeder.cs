@@ -10,12 +10,10 @@ namespace KWin.Seeding
     public class KWinMatchSeeder : ISeeder
     {
         private readonly BettingDbContext context;
-        private List<MatchTeam> participatingTeams;
 
         public KWinMatchSeeder(BettingDbContext context)
         {
             this.context = context;
-            this.participatingTeams = new List<MatchTeam>();
         }
 
         public void Seed()
@@ -26,12 +24,14 @@ namespace KWin.Seeding
 
                 Team[] teams = context.Teams.ToArray();
                 Random random = new Random();
-                List<int> takenTeams = new List<int>();
 
-                for (int i = 0; i < 5 - context.Matches.ToArray().Length; i++)
+                List<MatchTeam> participatingTeams = new List<MatchTeam>();
+                List<Match> matchesToAdd = new List<Match>();
+                //TODO: Fix
+                for (int i = 0; i < 5; i++)
                 {
-                    List<Team> twoRandomTeams = GetTwoRandomTeams( random, teams);
-
+                    List<Team> twoRandomTeams = GetTwoRandomTeams( random, teams, participatingTeams);
+                    
 
                     participatingTeams.Add(
                        new MatchTeam
@@ -59,27 +59,33 @@ namespace KWin.Seeding
                         MatchTeams = participatingTeams
                     };
 
+
+
+                    matchesToAdd.Add(match);
                     
 
-                    context.Matches.Add(match);
-                    context.SaveChanges();
 
                     twoRandomTeams.Clear();
-                    participatingTeams.Clear();
                 }
+
+                context.Matches.AddRange(matchesToAdd);
+                context.MatchTeams.AddRange(participatingTeams);
+                context.SaveChanges();
+
             }
         }
 
-        private List<Team> GetTwoRandomTeams(Random random, Team[] teams)
+        private List<Team> GetTwoRandomTeams(Random random, Team[] teams, List<MatchTeam> participatingTeams )
         {
 
             int firstTeam = 0;
             List<Team> teamsToReturn = new List<Team>();
             while (true)
             {
-                firstTeam = random.Next(0, 9);
+                firstTeam = random.Next(0, 10);
                 Team firstTeamToReturn = teams[firstTeam];
-                if (context.MatchTeams.Select(mt=>mt.TeamId).Contains(firstTeamToReturn.Id))
+                if (context.MatchTeams.Select(mt=>mt.TeamId).Contains(firstTeamToReturn.Id)
+                    || participatingTeams.Any(t=>t.TeamId ==firstTeamToReturn.Id))
                 {
                     continue;
                 }
@@ -89,10 +95,13 @@ namespace KWin.Seeding
 
             while (true)
             {
-                int secondTeam = random.Next(0, 9);
+                int secondTeam = random.Next(0,10);
                 Team secondTeamToReturn = teams[secondTeam];
+
+                
                 if (context.MatchTeams.Select(mt => mt.TeamId).Contains(secondTeamToReturn.Id)
-                    || secondTeamToReturn.Id == teams[firstTeam].Id)
+                    || secondTeamToReturn.Id == teams[firstTeam].Id
+                    || participatingTeams.Any(t => t.TeamId == secondTeamToReturn.Id))
                 {
                     continue;
                 }

@@ -76,7 +76,6 @@ namespace KWin
                 app.UseHsts();
             }
 
-            app.UseDatabaseSeeding();
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
@@ -93,6 +92,9 @@ namespace KWin
                     context.SaveChanges();
                 }
             }
+
+            app.UseDatabaseSeeding();
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

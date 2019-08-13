@@ -35,7 +35,7 @@ namespace KWin.Seeding
                 "Swindon Town"
             };
 
-            if (dbContext.Teams.ToList().Count <= 10)
+            if (dbContext.Teams.ToList().Count < 10)
             {
                 int teamCount = dbContext.Teams.ToList().Count;
 
