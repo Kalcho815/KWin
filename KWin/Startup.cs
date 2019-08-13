@@ -82,7 +82,7 @@ namespace KWin
             {
                 using (var context = serviceScope.ServiceProvider.GetRequiredService<BettingDbContext>())
                 {
-                    context.Database.EnsureCreated();
+                    //context.Database.EnsureCreated();
 
                     if (!context.Roles.Any())
                     {
