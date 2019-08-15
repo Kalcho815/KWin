@@ -37,6 +37,8 @@ namespace KWin
             services.AddScoped<KWinTeamsSeeder>();
             services.AddScoped<KWinMatchSeeder>();
             services.AddScoped<IPlayersService, PlayersService>();
+            services.AddScoped<IMatchesService, MatchesService>();
+
 
             services.AddDbContext<BettingDbContext>(options =>
                 options.UseSqlServer(

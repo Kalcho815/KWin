@@ -54,7 +54,7 @@ namespace KWin.Services
 
                 Player player = new Player
                 {
-                    FullName = randomFirstName + randomLastName,
+                    FullName = randomFirstName + " " + randomLastName,
                     TeamId = teamId,
                 };
 
