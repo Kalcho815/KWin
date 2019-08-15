@@ -4726,9 +4726,8 @@
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
           "KWin.Models": "1.0.0",
-          "KWin.Services": "1.0.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.2.0",
-          "Microsoft.EntityFrameworkCore": "2.2.6"
+          "Microsoft.EntityFrameworkCore": "2.2.6",
+          "Microsoft.Extensions.Identity.Stores": "2.2.0"
         },
         "compile": {
           "bin/placeholder/KWin.Data.dll": {}
@@ -4751,6 +4750,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
+          "KWin.Data": "1.0.0",
           "KWin.Models": "1.0.0"
         },
         "compile": {
@@ -12982,6 +12982,7 @@
     ".NETCoreApp,Version=v2.2": [
       "KWin.Data >= 1.0.0",
       "KWin.Models >= 1.0.0",
+      "KWin.Services >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
@@ -13025,6 +13026,9 @@
             },
             "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj": {
               "projectPath": "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj"
+            },
+            "C:\\KWin\\KWin\\KWin.Services\\KWin.Services.csproj": {
+              "projectPath": "C:\\KWin\\KWin\\KWin.Services\\KWin.Services.csproj"
             }
           }
         }

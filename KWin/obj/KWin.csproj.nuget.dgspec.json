@@ -32,9 +32,6 @@
             "projectReferences": {
               "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj": {
                 "projectPath": "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj"
-              },
-              "C:\\KWin\\KWin\\KWin.Services\\KWin.Services.csproj": {
-                "projectPath": "C:\\KWin\\KWin\\KWin.Services\\KWin.Services.csproj"
               }
             }
           }
@@ -48,13 +45,13 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[2.2.6, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
@@ -149,6 +146,9 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
+              "C:\\KWin\\KWin\\KWin.Data\\KWin.Data.csproj": {
+                "projectPath": "C:\\KWin\\KWin\\KWin.Data\\KWin.Data.csproj"
+              },
               "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj": {
                 "projectPath": "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj"
               }
@@ -210,6 +210,9 @@
               },
               "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj": {
                 "projectPath": "C:\\KWin\\KWin\\KWin.Models\\KWin.Models.csproj"
+              },
+              "C:\\KWin\\KWin\\KWin.Services\\KWin.Services.csproj": {
+                "projectPath": "C:\\KWin\\KWin\\KWin.Services\\KWin.Services.csproj"
               }
             }
           }

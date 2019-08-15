@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KWin.Models", "KWin.Models\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KWin.Services", "KWin.Services\KWin.Services.csproj", "{BE3F0CDB-C459-4AD5-85F8-8C4592F8D544}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KWin.Data", "KWin.Data\KWin.Data.csproj", "{FBF883D5-A290-4325-99BE-FDABC83DE4B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BE3F0CDB-C459-4AD5-85F8-8C4592F8D544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE3F0CDB-C459-4AD5-85F8-8C4592F8D544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE3F0CDB-C459-4AD5-85F8-8C4592F8D544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBF883D5-A290-4325-99BE-FDABC83DE4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBF883D5-A290-4325-99BE-FDABC83DE4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBF883D5-A290-4325-99BE-FDABC83DE4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBF883D5-A290-4325-99BE-FDABC83DE4B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

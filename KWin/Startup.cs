@@ -45,7 +45,7 @@ namespace KWin
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<BettingUser, IdentityRole>()
-                .AddEntityFrameworkStores<BettingDbContext>()
+                .AddEntityFrameworkStores<KWin.Data.BettingDbContext>()
                 .AddDefaultTokenProviders();
 
 
