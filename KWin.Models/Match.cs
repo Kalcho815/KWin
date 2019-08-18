@@ -15,6 +15,12 @@ namespace KWin.Models
 
         public ICollection<MatchTeam> MatchTeams { get; set; }
 
+        public double FirstTeamToWinOdds { get; set; }
+
+        public double DrawOdds { get; set; }
+
+        public double SecondTeamToWinOdds { get; set; }
+
         public string League { get; set; }
 
         public DateTime StartingTime { get; set; }
