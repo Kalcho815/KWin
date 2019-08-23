@@ -21,6 +21,7 @@ namespace KWin.Seeding
             if (context.Matches.Count() < 5)
             {
                 Team[] teams = context.Teams.ToArray();
+                Random randomOdds = new Random();
 
                 List<Match> matchesToAdd = new List<Match>();
                 for (int i = 0; i < 5 - context.Matches.Count(); i++)
@@ -31,8 +32,11 @@ namespace KWin.Seeding
                         Finished = false,
                         StartingTime = DateTime.UtcNow.AddHours(1),
                         League = teams[i].League,
+                        FirstTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,
+                        SecondTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,
+                        DrawOdds = randomOdds.NextDouble() * (2.10-1.20) + 1.20
                     };
-
+                
                     matchesToAdd.Add(match);
                 }
 

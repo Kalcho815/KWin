@@ -34,7 +34,7 @@ namespace KWin
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddScoped<KWinTeamsSeeder>();
+            services.AddScoped<KWinATeamsSeeder>();
             services.AddScoped<KWinMatchSeeder>();
             services.AddScoped<IPlayersService, PlayersService>();
             services.AddScoped<IMatchesService, MatchesService>();
