@@ -29,9 +29,13 @@ namespace KWin.Controllers
                 var teams = teamsService.GetTeamsByMatchId(match.Id).ToArray();
                 var matchForView = new MatchViewModel
                 {
+                    MatchId = match.Id,
                     FirstTeamName = teams[0].Name,
                     SecondTeamName = teams[1].Name,
-                    StartingTime = match.StartingTime
+                    StartingTime = match.StartingTime,
+                    FirstTeamOdds = match.FirstTeamToWinOdds.ToString("f2"),
+                    DrawOdds = match.DrawOdds.ToString("f2"),
+                    SecondTeamOdds = match.SecondTeamToWinOdds.ToString("f2"),
                 };
                 matchesForView.Add(matchForView);
             }

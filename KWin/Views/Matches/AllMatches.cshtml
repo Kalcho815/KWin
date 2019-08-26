@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using KWin.Models
 @model KWin.Models.Matches.MatchesViewModel
 
 
@@ -6,7 +7,6 @@
 @{
     ViewData["Title"] = "AllMatches";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 <div class="d-flex justify-content-between">
@@ -14,25 +14,41 @@
         <tbody>
             <tr class="row">
 
-                <th scope="row" class="col-lg-4 d-flex justify-content-center table-secondary"><h5>First team</h5></th>
-                <th scope="row" class="col-lg-4 d-flex justify-content-center table-secondary"><h5>Second team</h5></th>
+                <th scope="row" class="col-lg-3 d-flex justify-content-center table-secondary"><h5>First team</h5></th>
+                <th scope="row" class="col-lg-3 d-flex justify-content-center table-secondary"><h5>Second team</h5></th>
                 <th scope="row" class="col-lg-2 d-flex justify-content-center table-secondary"><h5>Starting time</h5></th>
-                <th scope="row" class="col-lg-2 d-flex justify-content-center table-secondary"><h5>Make a bet</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>Make a bet</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>1</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>X</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>2</h5></th>
                 @for (int i = 0; i < @Model.matches.Count; i++)
                 {
-                    <td class="col-lg-4 d-flex justify-content-center font-weight-bold">
-                        @Model.matches[i].FirstTeamName
-                    </td>
-                    <td class="col-lg-4 d-flex justify-content-center font-weight-bold">
-                        @Model.matches[i].SecondTeamName
-                    </td>
-                    <td class="col-lg-2 d-flex justify-content-center font-weight-bold">
-                        @Model.matches[i].StartingTime.ToString("dd/MM") <br />
-                        @Model.matches[i].StartingTime.ToString("hh:mm")
-                    </td>
-                    <td class="col-lg-2 d-flex button-holder justify-content-center font-weight-bold">
-                        <button type="button" style="width: 105px; border-radius: 2px"class="btn-dark text-white">BET</button>
-                    </td>
+                    <form action="/Bets/MakeABet">
+                        <td class="col-lg-3 d-flex justify-content-center font-weight-bold">
+                            @Model.matches[i].FirstTeamName
+                        </td>
+                        <td class="col-lg-3 d-flex justify-content-center font-weight-bold">
+                            @Model.matches[i].SecondTeamName
+                        </td>
+                        <td class="col-lg-2 d-flex justify-content-center font-weight-bold">
+                            @Model.matches[i].StartingTime.ToString("dd/MM") <br />
+                            @Model.matches[i].StartingTime.ToString("hh:mm")
+                        </td>
+                        <td class="col-lg-1 d-flex button-holder justify-content-center font-weight-bold">
+                            <button name="MatchId" style="width: 55px; border-radius: 5px" class="btn-dark text-white" type="submit" value="@Model.matches[i].MatchId">
+                                BET
+                            </button>
+                        </td>
+                        <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                            @Model.matches[i].FirstTeamOdds
+                        </td>
+                        <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                            @Model.matches[i].DrawOdds
+                        </td>
+                        <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                            @Model.matches[i].SecondTeamOdds
+                        </td>
+                    </form>
                 }
             </tr>
 
