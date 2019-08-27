@@ -1,4 +1,7 @@
-﻿@model KWin.Models.Matches.MatchViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@model KWin.Models.Matches.MatchViewModel
+@inject UserManager<BettingUser> UserManager
+
 
 @{
     ViewData["Title"] = "MakeABet";
@@ -6,31 +9,71 @@
 }
 
 
+<form method="post" asp-action="/Bets/MakeABet">
+    <div class="text-center d-flex justify-content-between">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <td>
+                    <h1>
+                        @Model.FirstTeamName
+                    </h1>
+                </td>
+                <td>
+                    <h1>
+                        vs
+                    </h1>
+                </td>
+                <td>
+                    <h1>
+                        @Model.SecondTeamName
+                    </h1>
+                </td>
+            </tr>
 
-<div class="text-center d-flex justify-content-between">
-    <table class="table table-hover table-bordered">
-        <tr>
-            <td>
-                <h1>
-                    @Model.FirstTeamName
-                </h1>
-            </td>
-            <td>
-                <h1>
-                    vs
-                </h1>
-            </td>
-            <td>
-                <h1>
-                    @Model.SecondTeamName
-                </h1>
-            </td>
-        </tr>
-        <tr>
-            <th><h2>1</h2></th>
-            <th><h2>X</h2></th>
-            <th><h2>2</h2></th>
-        </tr>
-    </table>
-</div>
+            <tr>
+                <th><h2>1</h2></th>
+                <th><h2>X</h2></th>
+                <th><h2>2</h2></th>
+            </tr>
+
+            <tr>
+                <th>
+                    <button name="typeOfBet" value="1" class="btn-dark text-white" type="submit">
+                        <h4>
+                            @Model.FirstTeamOdds
+                        </h4>
+                    </button>
+                </th>
+                <th>
+                    <button name="typeOfBet " value="x" class="btn-dark text-white" type="submit">
+                        <h4>
+                            @Model.DrawOdds
+                        </h4>
+                    </button>
+                </th>
+                <th>
+                    <button name="typeOfBet" value="2" class="btn-dark text-white" type="submit">
+                        <h4>
+                            @Model.SecondTeamOdds
+                        </h4>
+                    </button>
+                </th>
+            </tr>
+
+            <tr class="table-borderless">
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    Amount: <input type="text" name="amountOfBet" />
+                </th>
+            </tr>
+        </table>
+        <input type="hidden" name="userId" value="@this.UserManager<BettingUser>.GetUserAsync().Id" />
+    </div>
+</form>
+
 
