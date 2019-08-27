@@ -26,4 +26,9 @@
     <ProjectReference Include="..\KWin.Services\KWin.Services.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Models\Bets\" />
+  </ItemGroup>
+
 </Project>

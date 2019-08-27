@@ -1,0 +1,36 @@
+﻿@model KWin.Models.Matches.MatchViewModel
+
+@{
+    ViewData["Title"] = "MakeABet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="text-center d-flex justify-content-between">
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td>
+                <h1>
+                    @Model.FirstTeamName
+                </h1>
+            </td>
+            <td>
+                <h1>
+                    vs
+                </h1>
+            </td>
+            <td>
+                <h1>
+                    @Model.SecondTeamName
+                </h1>
+            </td>
+        </tr>
+        <tr>
+            <th><h2>1</h2></th>
+            <th><h2>X</h2></th>
+            <th><h2>2</h2></th>
+        </tr>
+    </table>
+</div>
+

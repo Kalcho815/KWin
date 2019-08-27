@@ -3,7 +3,6 @@
 @model KWin.Models.Matches.MatchesViewModel
 
 
-
 @{
     ViewData["Title"] = "AllMatches";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -35,7 +34,7 @@
                             @Model.matches[i].StartingTime.ToString("hh:mm")
                         </td>
                         <td class="col-lg-1 d-flex button-holder justify-content-center font-weight-bold">
-                            <button name="MatchId" style="width: 55px; border-radius: 5px" class="btn-dark text-white" type="submit" value="@Model.matches[i].MatchId">
+                            <button name="matchId" style="width: 55px; border-radius: 5px" class="btn-dark text-white" type="submit" value="@Model.matches[i].MatchId">
                                 BET
                             </button>
                         </td>
