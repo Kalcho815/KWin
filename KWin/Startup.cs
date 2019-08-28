@@ -39,6 +39,8 @@ namespace KWin
             services.AddScoped<IPlayersService, PlayersService>();
             services.AddScoped<IMatchesService, MatchesService>();
             services.AddScoped<ITeamsService, TeamsService>();
+            services.AddScoped<IBetsService, BetsService>();
+            services.AddScoped<IUsersService, UsersService>();
 
 
             services.AddDbContext<BettingDbContext>(options =>

@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using KWin.Models
+@using System.Web
+@using System.Security.Claims
 @inject SignInManager<BettingUser> SignInManager
+@inject  UserManager<BettingUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +79,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Matches/AllMatches">Matches</a>
+                        </li>
+                        <li class="nav-item nav-link">
+                            Balance: @this.UserManager.GetUserAsync(User).Result.Balance
                         </li>
                     </ul>
                 </div>

@@ -38,21 +38,21 @@
 
             <tr>
                 <th>
-                    <button name="typeOfBet" value="1" class="btn-dark text-white" type="submit">
+                    <button name="betType" value="1" class="btn-dark text-white" type="submit">
                         <h4>
                             @Model.FirstTeamOdds
                         </h4>
                     </button>
                 </th>
                 <th>
-                    <button name="typeOfBet " value="x" class="btn-dark text-white" type="submit">
+                    <button name="betType" value="X" class="btn-dark text-white" type="submit">
                         <h4>
                             @Model.DrawOdds
                         </h4>
                     </button>
                 </th>
                 <th>
-                    <button name="typeOfBet" value="2" class="btn-dark text-white" type="submit">
+                    <button name="betType" value="2" class="btn-dark text-white" type="submit">
                         <h4>
                             @Model.SecondTeamOdds
                         </h4>
@@ -64,15 +64,16 @@
                 <th>
 
                 </th>
-                <th>
-
+                <th >
+                    <p class="bg-danger">@Model.Error.ToUpper()</p>
                 </th>
                 <th>
-                    Amount: <input type="text" name="amountOfBet" />
+                    Amount: <input type="number" name="moneyBet"/>
                 </th>
             </tr>
         </table>
-        <input type="hidden" name="userId" value="@this.UserManager<BettingUser>.GetUserAsync().Id" />
+        <input type="hidden" name="userId" value="@this.UserManager.GetUserAsync(User).Result.Id" />
+        <input type="hidden" name="matchId" value="@Model.MatchId" />
     </div>
 </form>
 
