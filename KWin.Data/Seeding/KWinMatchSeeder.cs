@@ -30,7 +30,8 @@ namespace KWin.Seeding
                     Match match = new Match()
                     {
                         Finished = false,
-                        StartingTime = DateTime.UtcNow.AddHours(1),
+                        //Adding 3 hours because DateTime.UtcNow is inaccurate
+                        StartingTime = DateTime.UtcNow.AddHours(3),
                         League = teams[i].League,
                         FirstTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,
                         SecondTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,

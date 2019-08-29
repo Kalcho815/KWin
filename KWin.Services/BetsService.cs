@@ -1,6 +1,7 @@
 ﻿using KWin.Data;
 using KWin.Models;
 using KWin.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +39,11 @@ namespace KWin.Services
             Bet betToCreate = new Bet
             {
                 BettorId = bettorId,
+                Bettor = context.Users.Where(u => u.Id == bettorId).FirstOrDefault(),
                 BetType = (BetType)Enum.Parse(typeof(BetType), betType),
                 MadeOn = DateTime.UtcNow,
                 MatchId = matchId,
+                Match = context.Matches.Where(m => m.Id == matchId).FirstOrDefault(),
                 MoneyBet = moneyBet,
                 Odds = odds
             };
@@ -48,6 +51,18 @@ namespace KWin.Services
             
             context.Bets.Add(betToCreate);
             this.context.SaveChanges();
+        }
+
+        public ICollection<Bet> GetBetsByUserId(string userId)
+        {
+            var bets = context.Bets
+                .Where(b => b.BettorId == userId)
+                .Include(b => b.Bettor)
+                .Include(b=>b.Match)
+                .ThenInclude(m=>m.MatchTeams)
+                .ThenInclude(mt=>mt.Team)
+                .ToArray();
+            return bets;
         }
     }
 }

@@ -36,6 +36,7 @@ namespace KWin.Controllers
                     FirstTeamOdds = match.FirstTeamToWinOdds.ToString("f2"),
                     DrawOdds = match.DrawOdds.ToString("f2"),
                     SecondTeamOdds = match.SecondTeamToWinOdds.ToString("f2"),
+                    Result = match.Result
                 };
                 matchesForView.Add(matchForView);
             }

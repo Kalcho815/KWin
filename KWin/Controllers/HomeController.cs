@@ -1,4 +1,5 @@
 ﻿using KWin.Models;
+using KWin.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,8 +7,16 @@ namespace KWin.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMatchesService matchesService;
+
+        public HomeController(IMatchesService matchesService)
+        {
+            this.matchesService = matchesService;
+        }
+
         public IActionResult Index()
         {
+            matchesService.CheckAndGiveResultsToMatches();
             return View();
         }
 

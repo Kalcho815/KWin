@@ -10,5 +10,7 @@ namespace KWin.Services
         ICollection<Match> GetAllMatches();
 
         Match GetMatchById(string id);
+
+        void CheckAndGiveResultsToMatches();
     }
 }

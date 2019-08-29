@@ -72,5 +72,31 @@ namespace KWin.Controllers
 
             return this.Redirect("/Matches/AllMatches");
         }
+
+        public IActionResult MyBets()
+        {
+            var userBets = this.betsService.GetBetsByUserId(this._userManager.GetUserAsync(this.User).Result.Id);
+
+            var betViewModels = new List<BetViewModel>();
+
+            var match = userBets.ToArray()[0].Match; 
+
+            foreach (var bet in userBets)
+            {
+                var betViewModel = new BetViewModel()
+                {
+                    BetDate = bet.MadeOn.ToLongDateString(),
+                    FirstTeam = bet.Match.MatchTeams.ToArray()[0].Team.Name,
+                    SecondTeam = bet.Match.MatchTeams.ToArray()[1].Team.Name,
+                    MatchDate = bet.Match.StartingTime.ToLongDateString(),
+                    BetType = bet.BetType.ToString(),
+                    MoneyBet = bet.MoneyBet.ToString(),
+                    Odds = bet.Odds.ToString("f2")
+                };
+                betViewModels.Add(betViewModel);
+            }
+
+            return this.View(betViewModels.ToArray());
+        }
     }
 }
