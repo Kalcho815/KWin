@@ -31,7 +31,7 @@ namespace KWin.Seeding
                     {
                         Finished = false,
                         //Adding 3 hours because DateTime.UtcNow is inaccurate
-                        StartingTime = DateTime.UtcNow.AddHours(3),
+                        StartingTime = DateTime.UtcNow.AddHours(1).AddMinutes(32), //.AddHours(3),
                         League = teams[i].League,
                         FirstTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,
                         SecondTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,

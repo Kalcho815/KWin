@@ -18,6 +18,8 @@ namespace KWin.Models
 
         public double Odds { get; set; }
 
+        public bool Won { get; set; }
+
         public string MatchId { get; set; }
         public Match Match { get; set; }
 
