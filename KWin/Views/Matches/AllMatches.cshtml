@@ -35,9 +35,16 @@
                             @Model.matches[i].StartingTime.ToString("hh:mm")
                         </td>
                         <td class="col-lg-1 d-flex button-holder justify-content-center font-weight-bold">
-                            <button name="matchId" style="width: 55px; border-radius: 5px" class="btn-dark text-white" type="submit" value="@Model.matches[i].MatchId">
-                                BET
-                            </button>
+                            @if (Model.matches[i].StartingTime < DateTime.UtcNow)
+                            {
+                                <p>BETS ARE CLOSED</p>
+                            }
+                            else
+                            {
+                                <button name="matchId" style="width: 55px; border-radius: 5px" class="btn-dark text-white" type="submit" value="@Model.matches[i].MatchId">
+                                    BET
+                                </button>
+                            }
                         </td>
                         <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
                             @Model.matches[i].FirstTeamOdds

@@ -9,6 +9,8 @@ namespace KWin.Seeding
 {
     public class KWinMatchSeeder : ISeeder
     {
+        private const double minOddsRange = 1.20;
+        private const double maxOddsRange = 2.10;
         private readonly BettingDbContext context;
 
         public KWinMatchSeeder(BettingDbContext context)
@@ -31,11 +33,11 @@ namespace KWin.Seeding
                     {
                         Finished = false,
                         //Adding 3 hours because DateTime.UtcNow is inaccurate
-                        StartingTime = DateTime.UtcNow.AddHours(1).AddMinutes(32), //.AddHours(3),
+                        StartingTime = DateTime.UtcNow.AddHours(3),
                         League = teams[i].League,
-                        FirstTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,
-                        SecondTeamToWinOdds = randomOdds.NextDouble() * (2.10 - 1.20) + 1.20,
-                        DrawOdds = randomOdds.NextDouble() * (2.10-1.20) + 1.20
+                        FirstTeamToWinOdds = randomOdds.NextDouble() * (maxOddsRange - minOddsRange) + minOddsRange,
+                        SecondTeamToWinOdds = randomOdds.NextDouble() * (maxOddsRange - minOddsRange) + minOddsRange,
+                        DrawOdds = randomOdds.NextDouble() * (maxOddsRange - minOddsRange) + minOddsRange
                     };
                 
                     matchesToAdd.Add(match);
@@ -44,9 +46,7 @@ namespace KWin.Seeding
                 context.Matches.AddRange(matchesToAdd);
                 context.SaveChanges();
 
-
                 MappingTeamsToMatches();
-
             }
         }
 
