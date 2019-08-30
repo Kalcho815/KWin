@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace KWin.Models
 {
@@ -13,6 +14,8 @@ namespace KWin.Models
         }
         public string Id { get; set; }
 
+        [Required]
+        [MaxLength(30)]
         public string Name { get; set; }
 
         public ICollection<Player> Players { get; set; }
@@ -21,6 +24,7 @@ namespace KWin.Models
 
         public ICollection<MatchTeam> MatchTeams { get; set; }
 
+        [MaxLength(30)]
         public string League { get; set; }
     }
 }

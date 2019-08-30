@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace KWin.Models
 {
@@ -12,6 +13,8 @@ namespace KWin.Models
 
         public string Id { get; set; }
 
+        [Required]
+        [MaxLength(30)]
         public string FullName { get; set; }
 
         public string? TeamId { get; set; }
