@@ -10,5 +10,7 @@ namespace KWin.Services
         void CreateBet(string matchId, string bettorId, decimal moneyBet, string betType);
 
         ICollection<Bet> GetBetsByUserId(string userId);
+
+        void CheckAndPayoutBets(string userId);
     }
 }

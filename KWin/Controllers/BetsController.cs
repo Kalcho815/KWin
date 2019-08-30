@@ -75,6 +75,7 @@ namespace KWin.Controllers
 
         public IActionResult MyBets()
         {
+            this.betsService.CheckAndPayoutBets(this._userManager.GetUserAsync(this.User).Result.Id);
             var userBets = this.betsService.GetBetsByUserId(this._userManager.GetUserAsync(this.User).Result.Id);
 
             var betViewModels = new List<BetViewModel>();
@@ -83,6 +84,16 @@ namespace KWin.Controllers
 
             foreach (var bet in userBets)
             {
+                string betWinToDisplay = string.Empty;
+                if (bet.Won)
+                {
+                    betWinToDisplay = "Yes";
+                }
+                else
+                {
+                    betWinToDisplay = "No";
+                }
+
                 var betViewModel = new BetViewModel()
                 {
                     BetDate = bet.MadeOn.ToLongDateString(),
@@ -91,7 +102,8 @@ namespace KWin.Controllers
                     MatchDate = bet.Match.StartingTime.ToLongDateString(),
                     BetType = bet.BetType.ToString(),
                     MoneyBet = bet.MoneyBet.ToString(),
-                    Odds = bet.Odds.ToString("f2")
+                    Odds = bet.Odds.ToString("f2"),
+                    Won = betWinToDisplay
                 };
                 betViewModels.Add(betViewModel);
             }

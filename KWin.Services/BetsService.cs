@@ -17,6 +17,52 @@ namespace KWin.Services
         {
             this.context = context;
         }
+
+        public void CheckAndPayoutBets(string userId)
+        {
+            var userBets = context
+                .Bets
+                .Where(b => b.BettorId == userId && b.Match.Finished)
+                .Include(b=>b.Bettor)
+                .Include(b=>b.Match)
+                .ToList();
+
+            var user = context.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+            foreach (var bet in userBets)
+            {
+                int[] score = bet.Match.Result.Split(" - ").Select(n => int.Parse(n.ToString())).ToArray();
+                switch (bet.BetType.ToString())
+                {
+                    case "One":
+                        if (score[0] > score[1])
+                        {
+                            bet.Won = true;
+                            bet.Bettor.Balance += (decimal)bet.Odds * bet.MoneyBet;
+                        }
+                        break;
+                    case "X":
+                        if (score[0] == score[1])
+                        {
+                            bet.Won = true;
+                            bet.Bettor.Balance += (decimal)bet.Odds * bet.MoneyBet;
+                        }
+                        break;
+                    case "Two":
+                        if (score[0] < score[1])
+                        {
+                            bet.Won = true;
+                            bet.Bettor.Balance += (decimal)bet.Odds * bet.MoneyBet;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            context.SaveChanges();
+        }
+
         public void CreateBet(string matchId, string bettorId, decimal moneyBet, string betType)
         {
             double odds = 0;
@@ -45,10 +91,11 @@ namespace KWin.Services
                 MatchId = matchId,
                 Match = context.Matches.Where(m => m.Id == matchId).FirstOrDefault(),
                 MoneyBet = moneyBet,
-                Odds = odds
+                Odds = odds,
+                Won = false
             };
 
-            
+
             context.Bets.Add(betToCreate);
             this.context.SaveChanges();
         }
@@ -58,9 +105,9 @@ namespace KWin.Services
             var bets = context.Bets
                 .Where(b => b.BettorId == userId)
                 .Include(b => b.Bettor)
-                .Include(b=>b.Match)
-                .ThenInclude(m=>m.MatchTeams)
-                .ThenInclude(mt=>mt.Team)
+                .Include(b => b.Match)
+                .ThenInclude(m => m.MatchTeams)
+                .ThenInclude(mt => mt.Team)
                 .ToArray();
             return bets;
         }
