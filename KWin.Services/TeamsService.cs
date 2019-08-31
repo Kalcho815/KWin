@@ -32,5 +32,11 @@ namespace KWin.Services
 
             return teamsToReturn;
         }
+
+        public ICollection<Team> GetAllTeams()
+        {
+            var teams = context.Teams.ToList();
+            return teams;
+        }
     }
 }

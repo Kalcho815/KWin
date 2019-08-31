@@ -8,5 +8,7 @@ namespace KWin.Services
     public interface ITeamsService
     {
         ICollection<Team> GetTeamsByMatchId(string matchId);
+
+        ICollection<Team> GetAllTeams();
     }
 }

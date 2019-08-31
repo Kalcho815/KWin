@@ -1,0 +1,28 @@
+﻿@model ICollection<KWin.Models.Teams.TeamViewModel>
+@{
+    ViewData["Title"] = "AllTeams";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AllTeams</h1>
+
+<<div class="d-flex justify-content-between col-lg-8" style="width:800px; margin:0 auto;">
+    <table class="table table-hover table-bordered">
+        <tbody>
+            <tr class="row">
+
+                <th scope="row" class="col-lg-8 d-flex justify-content-center table-secondary"><h5>Name</h5></th>
+                <th scope="row" class="col-lg-4 d-flex justify-content-center table-secondary"><h5>League</h5></th>
+                @for (int i = 0; i < @Model.Count; i++)
+                {
+                    <td class="col-lg-8 d-flex justify-content-center font-weight-bold">
+                        @Model.ToArray()[i].Name
+                    </td>
+                    <td class="col-lg-4 d-flex justify-content-center font-weight-bold">
+                        @Model.ToArray()[i].League
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
