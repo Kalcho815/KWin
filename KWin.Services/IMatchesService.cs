@@ -12,5 +12,7 @@ namespace KWin.Services
         Match GetMatchById(string id);
 
         void CheckAndGiveResultsToMatches();
+
+        void DeleteOldMatches();
     }
 }

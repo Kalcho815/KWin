@@ -4,6 +4,7 @@ using System.Text;
 using KWin.Models;
 using KWin.Data;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace KWin.Services
 {
@@ -22,7 +23,7 @@ namespace KWin.Services
 
             foreach (var match in matches)
             {
-                if (match.StartingTime < DateTime.UtcNow.AddMinutes(90))
+                if (match.StartingTime.AddMinutes(90) < DateTime.UtcNow.AddHours(3))
                 {
                     if (!match.Finished)
                     {
@@ -77,7 +78,7 @@ namespace KWin.Services
 
         public ICollection<Match> GetAllMatches()
         {
-            IList<Match> matches = this.context.Matches.ToList();
+            IList<Match> matches = this.context.Matches.Include(m=>m.MatchTeams).ThenInclude(mt=>mt.Team).ToList();
 
             return matches;
         }
@@ -87,6 +88,13 @@ namespace KWin.Services
             var match = this.context.Matches.Where(m => m.Id == id).FirstOrDefault();
 
             return match;
+        }
+
+        public void DeleteOldMatches()
+        {
+            var matchesToDelete = context.Matches
+                .Where(m => m.Finished == true && m.StartingTime.AddDays(1) < DateTime.UtcNow.AddHours(3));
+            context.Matches.RemoveRange(matchesToDelete);
         }
     }
 }

@@ -35,7 +35,7 @@
                             @Model.matches[i].StartingTime.ToString("hh:mm")
                         </td>
                         <td class="col-lg-1 d-flex button-holder justify-content-center font-weight-bold">
-                            @if (Model.matches[i].StartingTime < DateTime.UtcNow)
+                            @if (Model.matches[i].StartingTime < DateTime.UtcNow.AddHours(3))
                             {
                                 <p>BETS ARE CLOSED</p>
                             }

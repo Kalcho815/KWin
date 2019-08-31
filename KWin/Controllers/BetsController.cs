@@ -2,6 +2,7 @@
 using KWin.Models.Bets;
 using KWin.Models.Matches;
 using KWin.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,9 +33,16 @@ namespace KWin.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult MakeABet(string matchId, string errorMessage)
         {
+            
+
             var match = this.matchesService.GetMatchById(matchId);
+            if (match.Finished)
+            {
+                return this.Redirect("/Matches/AllMatches");
+            }
             var teams = teamsService.GetTeamsByMatchId(match.Id).ToArray();
 
             if (errorMessage != "Not enough balance")
@@ -59,12 +67,17 @@ namespace KWin.Controllers
 
         [HttpPost]
         [ActionName("MakeABet")]
+        [Authorize]
         public IActionResult MakeABetPost(BetCreateBindingModel model)
         {
             var userBalance = this._userManager.GetUserAsync(this.User).Result.Balance;
             if (model.MoneyBet > userBalance)
             {
                 return this.MakeABet(model.MatchId, "Not enough balance");
+            }
+            if (true)
+            {
+
             }
 
             this.betsService.CreateBet(model.MatchId, model.UserId, model.MoneyBet, model.BetType);
@@ -73,6 +86,7 @@ namespace KWin.Controllers
             return this.Redirect("/Matches/AllMatches");
         }
 
+        [Authorize]
         public IActionResult MyBets()
         {
             this.betsService.CheckAndPayoutBets(this._userManager.GetUserAsync(this.User).Result.Id);
@@ -80,7 +94,6 @@ namespace KWin.Controllers
 
             var betViewModels = new List<BetViewModel>();
 
-            var match = userBets.ToArray()[0].Match; 
 
             foreach (var bet in userBets)
             {
@@ -96,10 +109,10 @@ namespace KWin.Controllers
 
                 var betViewModel = new BetViewModel()
                 {
-                    BetDate = bet.MadeOn.ToLongDateString(),
+                    BetDate = bet.MadeOn,
                     FirstTeam = bet.Match.MatchTeams.ToArray()[0].Team.Name,
                     SecondTeam = bet.Match.MatchTeams.ToArray()[1].Team.Name,
-                    MatchDate = bet.Match.StartingTime.ToLongDateString(),
+                    MatchDate = bet.Match.StartingTime,
                     BetType = bet.BetType.ToString(),
                     MoneyBet = bet.MoneyBet.ToString(),
                     Odds = bet.Odds.ToString("f2"),

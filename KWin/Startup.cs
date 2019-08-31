@@ -51,6 +51,7 @@ namespace KWin
                 .AddEntityFrameworkStores<KWin.Data.BettingDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Idenity/Account/Login");
 
             services.Configure<IdentityOptions>(options =>
             {

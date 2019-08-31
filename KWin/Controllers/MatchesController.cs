@@ -1,5 +1,6 @@
 ﻿using KWin.Models.Matches;
 using KWin.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace KWin.Controllers
             this.teamsService = teamsService;
         }
 
+        [Authorize]
         public IActionResult AllMatches()
         {
             var allMatches = this.matchesService.GetAllMatches();
@@ -26,12 +28,11 @@ namespace KWin.Controllers
 
             foreach (var match in allMatches)
             {
-                var teams = teamsService.GetTeamsByMatchId(match.Id).ToArray();
                 var matchForView = new MatchViewModel
                 {
                     MatchId = match.Id,
-                    FirstTeamName = teams[0].Name,
-                    SecondTeamName = teams[1].Name,
+                    FirstTeamName = match.MatchTeams.ToArray()[0].Team.Name,
+                    SecondTeamName = match.MatchTeams.ToArray()[1].Team.Name,
                     StartingTime = match.StartingTime,
                     FirstTeamOdds = match.FirstTeamToWinOdds.ToString("f2"),
                     DrawOdds = match.DrawOdds.ToString("f2"),

@@ -20,20 +20,22 @@ namespace KWin.Seeding
 
         public void Seed()
         {
-            if (context.Matches.Count() < 5)
+            var matchesNotFinished = context.Matches.Where(m => m.Finished == false).Count() < 5;
+
+            if (context.Matches.Where(m=>m.Finished == false).Count() < 5)
             {
                 Team[] teams = context.Teams.ToArray();
                 Random randomOdds = new Random();
 
                 List<Match> matchesToAdd = new List<Match>();
-                for (int i = 0; i < 5 - context.Matches.Count(); i++)
+                for (int i = 0; i < 5 - context.Matches.Where(m=>m.Finished == false).Count(); i++)
                 {
 
                     Match match = new Match()
                     {
                         Finished = false,
                         //Adding 3 hours because DateTime.UtcNow is inaccurate
-                        StartingTime = DateTime.UtcNow.AddHours(3),
+                        StartingTime = DateTime.UtcNow.AddHours(4),
                         League = teams[i].League,
                         FirstTeamToWinOdds = randomOdds.NextDouble() * (maxOddsRange - minOddsRange) + minOddsRange,
                         SecondTeamToWinOdds = randomOdds.NextDouble() * (maxOddsRange - minOddsRange) + minOddsRange,
@@ -59,7 +61,7 @@ namespace KWin.Seeding
                 List<MatchTeam> matchTeams = new List<MatchTeam>();
                 while (true)
                 {
-                    string randomMatchId = context.Matches.ToArray()[randomMatch.Next(0, 5)].Id;
+                    string randomMatchId = context.Matches.Where(m=> m.Finished == false).ToArray()[randomMatch.Next(0, 5)].Id;
                     if (context.Matches.Where(m => m.Id == randomMatchId).FirstOrDefault().MatchTeams.Count() < 2)
                     {
                         matchTeams.Add(new MatchTeam()

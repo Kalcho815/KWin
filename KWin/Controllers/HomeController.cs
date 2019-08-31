@@ -16,6 +16,7 @@ namespace KWin.Controllers
 
         public IActionResult Index()
         {
+            matchesService.DeleteOldMatches();
             matchesService.CheckAndGiveResultsToMatches();
             return View();
         }

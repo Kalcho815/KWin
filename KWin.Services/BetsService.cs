@@ -22,7 +22,7 @@ namespace KWin.Services
         {
             var userBets = context
                 .Bets
-                .Where(b => b.BettorId == userId && b.Match.Finished)
+                .Where(b => b.BettorId == userId && b.Match.Finished && !b.Won)
                 .Include(b=>b.Bettor)
                 .Include(b=>b.Match)
                 .ToList();

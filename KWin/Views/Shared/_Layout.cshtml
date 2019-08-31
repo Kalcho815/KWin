@@ -51,15 +51,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/Identity/Account/Register">Register</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Matches</a>
-                        </li>
                     </ul>
                 </div>
             }
             else if (this.User.IsInRole("User"))
             {
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="/Home/Index">KWin</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -72,23 +69,27 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">My bets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Identity/Account/Logout">Logout</a>
+                            <a class="nav-link" href="/Bets/MyBets">My bets</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Matches/AllMatches">Matches</a>
                         </li>
-                        <li class="nav-item nav-link">
-                            Balance: @this.UserManager.GetUserAsync(User).Result.Balance
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Teams/AllTeams">Teams</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Identity/Account/Logout">Logout</a>
+                        </li>
+                        <li class="nav-item nav-link">
+                            Balance: @this.UserManager.GetUserAsync(User).Result.Balance.ToString("f2")
+                        </li>
+
                     </ul>
                 </div>
             }
             else if (this.User.IsInRole("Admin"))
             {
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="/Home/Index">KWin</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -101,16 +102,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">My bets</a>
+                            <a class="nav-link" href="/Bets/MyBets">My bets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Matches/AllMatches">Matches</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Teams/AllTeams">Teams</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Identity/Account/Logout">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Add bet</a>
+                        <li class="nav-item nav-link">
+                            Balance: @this.UserManager.GetUserAsync(User).Result.Balance.ToString("f2")
                         </li>
                     </ul>
                 </div>
