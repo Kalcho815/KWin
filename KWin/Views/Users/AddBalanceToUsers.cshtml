@@ -1,11 +1,12 @@
 ﻿@model ICollection<KWin.Models.Users.UserViewModel>
 
 @{
-    ViewData["Title"] = "AddBalanceToUsers";
+    ViewData["Title"] = "Add balance to users";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Add Balance To Users</h1>
+<h1 class="display-4 text-center">Add balance to users</h1>
+
 <div class="d-flex justify-content-between align-content-center col-lg-2 table-bordered border-dark" style="width:800px; margin:0 auto; padding: 30px;">
     <form method="post" asp-action="/Users/AddBalanceToUsers">
         Amount: <input style="display: block; margin: 0 auto; "class="input-group" type="number" step="any" name="amount" min="0.01"/>

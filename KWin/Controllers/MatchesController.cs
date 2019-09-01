@@ -44,7 +44,7 @@ namespace KWin.Controllers
 
             var matchesViewModel = new MatchesViewModel()
             {
-                matches = matchesForView
+                matches = matchesForView.OrderByDescending(m=>m.StartingTime).ToList()
             };
 
             return this.View(matchesViewModel);

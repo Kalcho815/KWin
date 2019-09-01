@@ -9,6 +9,8 @@ namespace KWin.Services
     {
         ICollection<Match> GetAllMatches();
 
+        ICollection<Match> GetUnfinishedMatches();
+
         Match GetMatchById(string id);
 
         void CheckAndGiveResultsToMatches();

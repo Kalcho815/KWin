@@ -1,7 +1,10 @@
 ﻿using KWin.Models;
+using KWin.Models.Matches;
 using KWin.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace KWin.Controllers
 {
@@ -18,7 +21,24 @@ namespace KWin.Controllers
         {
             matchesService.DeleteOldMatches();
             matchesService.CheckAndGiveResultsToMatches();
-            return View();
+
+            var matches = matchesService.GetUnfinishedMatches();
+            var matchViewModels = new List<MatchViewModel>();
+
+            foreach (var match in matches)
+            {
+                var matchViewModel = new MatchViewModel
+                {
+                    FirstTeamName = match.MatchTeams.ToArray()[0].Team.Name,
+                    SecondTeamName = match.MatchTeams.ToArray()[1].Team.Name,
+                    MatchId = match.Id
+                };
+
+                matchViewModels.Add(matchViewModel);
+            }
+
+
+            return View(matchViewModels);
         }
 
         public IActionResult Privacy()

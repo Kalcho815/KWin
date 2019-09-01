@@ -102,18 +102,36 @@ namespace KWin.Controllers
                 {
                     betWinToDisplay = "Yes";
                 }
-                else
+                else if (bet.Match.Finished == false)
+                {
+                    betWinToDisplay = "Match is not finished";
+                }
+                else 
                 {
                     betWinToDisplay = "No";
                 }
 
+                var typeOfBet = "";
+                if (bet.BetType.ToString() == "One")
+                {
+                    typeOfBet = "1";
+                }
+                else if (bet.BetType.ToString() == "X")
+                {
+                    typeOfBet = "X";
+                }
+                else if (bet.BetType.ToString() == "2")
+                {
+                    typeOfBet = "2";
+                }
+                
                 var betViewModel = new BetViewModel()
                 {
                     BetDate = bet.MadeOn,
                     FirstTeam = bet.Match.MatchTeams.ToArray()[0].Team.Name,
                     SecondTeam = bet.Match.MatchTeams.ToArray()[1].Team.Name,
                     MatchDate = bet.Match.StartingTime,
-                    BetType = bet.BetType.ToString(),
+                    BetType = typeOfBet,
                     MoneyBet = bet.MoneyBet.ToString(),
                     Odds = bet.Odds.ToString("f2"),
                     Won = betWinToDisplay

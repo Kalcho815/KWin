@@ -96,5 +96,15 @@ namespace KWin.Services
                 .Where(m => m.Finished == true && m.StartingTime.AddDays(1) < DateTime.UtcNow.AddHours(3));
             context.Matches.RemoveRange(matchesToDelete);
         }
+
+        public ICollection<Match> GetUnfinishedMatches()
+        {
+            IList<Match> matches = this.context.Matches
+                .Where(m=>m.Finished==false)
+                .Include(m => m.MatchTeams)
+                .ThenInclude(mt => mt.Team).ToList();
+
+            return matches;
+        }
     }
 }
