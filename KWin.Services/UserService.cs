@@ -20,6 +20,21 @@ namespace KWin.Services
             this.context = context;
         }
 
+        public ICollection<BettingUser> GetAllUsers()
+        {
+            var usersToReturn = context.Users.ToList();
+
+            return usersToReturn;
+        }
+
+        public void IncreaseUserBalanceByUsername(string username, decimal amount)
+        {
+            var user = this.context.Users.Where(u => u.UserName == username).FirstOrDefault();
+
+            user.Balance += amount;
+            context.SaveChanges();
+        }
+
         public void ReduceBalance(decimal amount, string userId)
         {
             context.Users.FirstOrDefault(u => u.Id == userId).Balance -= amount;
