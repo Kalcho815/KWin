@@ -1,10 +1,11 @@
 ﻿using KWin.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
     public interface IPlayersService
     {
-        ICollection<Player> CreateAndGetPlayers(string TeamId);
+        Task<ICollection<Player>> CreateAndGetPlayers(string TeamId);
     }
 }

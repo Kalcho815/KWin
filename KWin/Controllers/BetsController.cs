@@ -23,7 +23,8 @@ namespace KWin.Controllers
         public BetsController(IMatchesService matchesService, ITeamsService teamsService
             , UserManager<BettingUser> _userManager
             , IBetsService betsService
-            , IUsersService usersService)
+            , IUsersService usersService
+            )
         {
             this.matchesService = matchesService;
             this.teamsService = teamsService;
@@ -34,26 +35,25 @@ namespace KWin.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult MakeABet(string matchId, string errorMessage)
+        [ActionName("MakeABet")]
+        public async Task<IActionResult> MakeABetAsync(string matchId, string errorMessage)
         {
-            
-
-            var match = this.matchesService.GetMatchById(matchId);
+            var match = await this.matchesService.GetMatchByIdAsync(matchId);
             if (match.Finished)
             {
                 return this.Redirect("/Matches/AllMatches");
             }
-            var teams = teamsService.GetTeamsByMatchId(match.Id).ToArray();
-
-            if (errorMessage != "Not enough balance")
+            var teams = await teamsService.GetTeamsByMatchIdAsync(match.Id);
+            
+            if (errorMessage == null)
             {
                 errorMessage = "";
             }
 
             MatchViewModel matchView = new MatchViewModel
             {
-                FirstTeamName = teams[0].Name,
-                SecondTeamName = teams[1].Name,
+                FirstTeamName = teams.ToArray()[0].Name,
+                SecondTeamName = teams.ToArray()[1].Name,
                 StartingTime = match.StartingTime,
                 FirstTeamOdds = match.FirstTeamToWinOdds.ToString("f2"),
                 DrawOdds = match.DrawOdds.ToString("f2"),
@@ -68,29 +68,36 @@ namespace KWin.Controllers
         [HttpPost]
         [ActionName("MakeABet")]
         [Authorize]
-        public IActionResult MakeABetPost(BetCreateBindingModel model)
+        public async Task<IActionResult> MakeABetPost(BetCreateBindingModel model)
         {
             var userBalance = this._userManager.GetUserAsync(this.User).Result.Balance;
             if (model.MoneyBet > userBalance)
             {
-                return this.MakeABet(model.MatchId, "Not enough balance");
+                return await this.MakeABetAsync(model.MatchId, "Not enough balance");
             }
-            if (true)
+            else if (model.MoneyBet<=1)
             {
-
+                return await this.MakeABetAsync(model.MatchId, "Bet ammount can not be below 1");
             }
 
-            this.betsService.CreateBet(model.MatchId, model.UserId, model.MoneyBet, model.BetType);
-            this.usersService.ReduceBalance(model.MoneyBet, model.UserId);
+            if (ModelState.IsValid)
+            {
+                await this.betsService.CreateBetAsync(model.MatchId, model.UserId, model.MoneyBet, model.BetType);
+                await this.usersService.ReduceBalanceAsync(model.MoneyBet, model.UserId);
+            }
+            else
+            {
+                return await this.MakeABetAsync(model.MatchId, ModelState.ValidationState.ToString());
+            }
 
             return this.Redirect("/Matches/AllMatches");
         }
 
         [Authorize]
-        public IActionResult MyBets()
+        public async Task<IActionResult> MyBets()
         {
-            this.betsService.CheckAndPayoutBets(this._userManager.GetUserAsync(this.User).Result.Id);
-            var userBets = this.betsService.GetBetsByUserId(this._userManager.GetUserAsync(this.User).Result.Id);
+            await this.betsService.CheckAndPayoutBetsAsync(this._userManager.GetUserAsync(this.User).Result.Id);
+            var userBets = await this.betsService.GetBetsByUserIdAsync(this._userManager.GetUserAsync(this.User).Result.Id);
 
             var betViewModels = new List<BetViewModel>();
 

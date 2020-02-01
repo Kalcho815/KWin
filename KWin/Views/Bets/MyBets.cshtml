@@ -1,0 +1,60 @@
+﻿@model KWin.Models.Bets.BetViewModel[]
+
+@{
+    ViewData["Title"] = "My bets";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="display-4 text-center">My bets</h1>
+
+<div class="d-flex justify-content-between">
+    <table class="table table-hover table-bordered">
+        <tbody>
+            <tr class="row">
+                <th scope="row" class="col-lg-2 d-flex justify-content-center table-secondary"><h5>1</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>X</h5></th>
+                <th scope="row" class="col-lg-2 d-flex justify-content-center table-secondary"><h5>2</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>Starting time</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>Bet made on</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>Bet type</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>Money bet</h5></th>
+                <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>Odds</h5></th>
+                <th scope="row" class="col-lg-2 d-flex justify-content-center table-secondary"><h5>Won</h5></th>
+                @for (int i = 0; i < @Model.Length; i++)
+                {
+                    <td class="col-lg-2 d-flex justify-content-center font-weight-bold">
+                        @Model[i].FirstTeam
+                    </td>
+                    <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                        VS
+                    </td>
+                    <td class="col-lg-2 d-flex justify-content-center font-weight-bold">
+                        @Model[i].SecondTeam
+                    </td>
+                    <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                        @Model[i].MatchDate.ToString("dd/MM") <br />
+                        @Model[i].MatchDate.ToString("hh:mm")
+                    </td>
+                    <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                        @Model[i].BetDate.ToString("dd/MM") <br />
+                        @Model[i].BetDate.ToString("hh:mm")
+
+                    </td>
+                    <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                        @Model[i].BetType
+                    </td>
+                    <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                        @Model[i].MoneyBet
+                    </td>
+                    <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
+                        @Model[i].Odds
+                    </td>
+                    <td class="col-lg-2 d-flex justify-content-center font-weight-bold">
+                        @Model[i].Won
+                    </td>
+                }
+            </tr>
+
+        </tbody>
+    </table>
+</div>

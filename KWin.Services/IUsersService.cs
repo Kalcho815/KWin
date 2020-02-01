@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
     public interface IUsersService
     {
-        void ReduceBalance(decimal amount, string userId);
+        Task ReduceBalanceAsync(decimal amount, string userId);
 
-        ICollection<BettingUser> GetAllUsers();
+        Task<ICollection<BettingUser>> GetAllUsersAsync();
 
-        void IncreaseUserBalanceByUsername(string username, decimal amount);
+        Task IncreaseUserBalanceByUsernameAsync(string username, decimal amount);
     }
 }

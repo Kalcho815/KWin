@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace KWin
 {
@@ -68,7 +70,7 @@ namespace KWin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -107,7 +109,8 @@ namespace KWin
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
+            
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

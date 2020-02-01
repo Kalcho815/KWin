@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using KWin.Data;
 using KWin.Models;
 
@@ -16,16 +17,9 @@ namespace KWin.Services
             this.context = context;
         }
 
-        public ICollection<Team> GetTeamsByMatchId(string matchId)
+        public async Task<ICollection<Team>> GetTeamsByMatchIdAsync(string matchId)
         {
             List<Team> teamsToReturn = new List<Team>();
-
-            //teamsToReturn = this.context.Matches
-            //    .Where(m => m.Id == matchId)
-            //    .FirstOrDefault()
-            //    .MatchTeams
-            //    .Select(mt => mt.Team)
-            //    .ToList();
 
             teamsToReturn = this.context
                 .Teams.Where(t => t.MatchTeams.Any(mt => mt.MatchId == matchId)).ToList();
@@ -33,7 +27,7 @@ namespace KWin.Services
             return teamsToReturn;
         }
 
-        public ICollection<Team> GetAllTeams()
+        public async Task<ICollection<Team>> GetAllTeamsAsync()
         {
             var teams = context.Teams.ToList();
             return teams;

@@ -18,7 +18,7 @@ namespace KWin.Seeding
             this.context = context;
         }
 
-        public void Seed()
+        public async Task Seed()
         {
             var matchesNotFinished = context.Matches.Where(m => m.Finished == false).Count() < 5;
 
@@ -34,8 +34,7 @@ namespace KWin.Seeding
                     Match match = new Match()
                     {
                         Finished = false,
-                        //Adding 3 hours because DateTime.UtcNow is inaccurate
-                        StartingTime = DateTime.UtcNow.AddHours(4),
+                        StartingTime = DateTime.UtcNow.AddHours(1),
                         League = teams[i].League,
                         FirstTeamToWinOdds = randomOdds.NextDouble() * (maxOddsRange - minOddsRange) + minOddsRange,
                         SecondTeamToWinOdds = randomOdds.NextDouble() * (maxOddsRange - minOddsRange) + minOddsRange,
@@ -48,11 +47,11 @@ namespace KWin.Seeding
                 context.Matches.AddRange(matchesToAdd);
                 context.SaveChanges();
 
-                MappingTeamsToMatches();
+                await MappingTeamsToMatchesAsync();
             }
         }
 
-        private void MappingTeamsToMatches()
+        private async Task MappingTeamsToMatchesAsync()
         {
             Random randomMatch = new Random();
 

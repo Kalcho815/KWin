@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
     public interface IMatchesService
     {
-        ICollection<Match> GetAllMatches();
+        Task<ICollection<Match>> GetAllMatchesAsync();
 
-        ICollection<Match> GetUnfinishedMatches();
+        Task<ICollection<Match>> GetUnfinishedMatchesAsync();
 
-        Match GetMatchById(string id);
+        Task<Match> GetMatchByIdAsync(string id);
 
-        void CheckAndGiveResultsToMatches();
+        Task CheckAndGiveResultsToMatchesAsync();
 
-        void DeleteOldMatches();
+        Task DeleteOldMatchesAsync();
     }
 }

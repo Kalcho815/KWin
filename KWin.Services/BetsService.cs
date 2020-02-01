@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
@@ -18,7 +19,7 @@ namespace KWin.Services
             this.context = context;
         }
 
-        public void CheckAndPayoutBets(string userId)
+        public async Task CheckAndPayoutBetsAsync(string userId)
         {
             var userBets = context
                 .Bets
@@ -63,7 +64,7 @@ namespace KWin.Services
             context.SaveChanges();
         }
 
-        public void CreateBet(string matchId, string bettorId, decimal moneyBet, string betType)
+        public async Task CreateBetAsync(string matchId, string bettorId, decimal moneyBet, string betType)
         {
             double odds = 0;
 
@@ -100,7 +101,7 @@ namespace KWin.Services
             this.context.SaveChanges();
         }
 
-        public ICollection<Bet> GetBetsByUserId(string userId)
+        public async Task<ICollection<Bet>> GetBetsByUserIdAsync(string userId)
         {
             var bets = context.Bets
                 .Where(b => b.BettorId == userId)

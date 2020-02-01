@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Web;
 using KWin.Data;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
@@ -20,14 +21,14 @@ namespace KWin.Services
             this.context = context;
         }
 
-        public ICollection<BettingUser> GetAllUsers()
+        public async Task<ICollection<BettingUser>> GetAllUsersAsync()
         {
             var usersToReturn = context.Users.ToList();
 
             return usersToReturn;
         }
 
-        public void IncreaseUserBalanceByUsername(string username, decimal amount)
+        public async Task IncreaseUserBalanceByUsernameAsync(string username, decimal amount)
         {
             var user = this.context.Users.Where(u => u.UserName == username).FirstOrDefault();
 
@@ -35,7 +36,7 @@ namespace KWin.Services
             context.SaveChanges();
         }
 
-        public void ReduceBalance(decimal amount, string userId)
+        public async Task ReduceBalanceAsync(decimal amount, string userId)
         {
             context.Users.FirstOrDefault(u => u.Id == userId).Balance -= amount;
             context.SaveChanges();

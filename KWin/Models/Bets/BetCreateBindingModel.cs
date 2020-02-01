@@ -10,7 +10,7 @@ namespace KWin.Models.Bets
     public class BetCreateBindingModel
     {
         [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "The amount of the bet cannot be negative")]
+        [Range(1, int.MaxValue, ErrorMessage = "The amount of the bet cannot be below 1")]
         public decimal MoneyBet { get; set; }
 
         public string BetType { get; set; }
@@ -18,5 +18,6 @@ namespace KWin.Models.Bets
         public string MatchId { get; set; }
 
         public string UserId { get; set; }
+
     }
 }

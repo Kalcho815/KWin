@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
     public interface ITeamsService
     {
-        ICollection<Team> GetTeamsByMatchId(string matchId);
+        Task<ICollection<Team>> GetTeamsByMatchIdAsync(string matchId);
 
-        ICollection<Team> GetAllTeams();
+        Task<ICollection<Team>> GetAllTeamsAsync();
     }
 }

@@ -29,7 +29,7 @@
                                 @Model.ToArray()[i].FirstTeamName - @Model.ToArray()[i].SecondTeamName
                             </td>
                             <td class="col-lg-4 d-flex justify-content-center font-weight-bold">
-                                @if (Model.ToArray()[i].StartingTime < DateTime.UtcNow.AddHours(3))
+                                @if (Model.ToArray()[i].StartingTime < DateTime.UtcNow)
                                 {
                                     <p>BETS ARE CLOSED</p>
                                 }

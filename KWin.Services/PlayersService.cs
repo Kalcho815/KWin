@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
     public class PlayersService : IPlayersService
     {
-
-        public ICollection<Player> CreateAndGetPlayers(string teamId)
+        
+        public async Task<ICollection<Player>> CreateAndGetPlayers(string teamId)
         {
             string[] playerFirstNames = new string[]
             {

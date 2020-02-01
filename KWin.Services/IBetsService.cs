@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
     public interface IBetsService
     {
-        void CreateBet(string matchId, string bettorId, decimal moneyBet, string betType);
+        Task CreateBetAsync(string matchId, string bettorId, decimal moneyBet, string betType);
 
-        ICollection<Bet> GetBetsByUserId(string userId);
+        Task<ICollection<Bet>> GetBetsByUserIdAsync(string userId);
 
-        void CheckAndPayoutBets(string userId);
+        Task CheckAndPayoutBetsAsync(string userId);
     }
 }

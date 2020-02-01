@@ -23,7 +23,6 @@
                 <th scope="row" class="col-lg-1 d-flex justify-content-center table-secondary"><h5>Result</h5></th>
                 @for (int i = 0; i < @Model.matches.Count; i++)
                 {
-                    <form action="/Bets/MakeABet">
                         <td class="col-lg-3 d-flex justify-content-center font-weight-bold">
                             @Model.matches[i].FirstTeamName
                         </td>
@@ -35,16 +34,19 @@
                             @Model.matches[i].StartingTime.ToString("hh:mm")
                         </td>
                         <td class="col-lg-1 d-flex button-holder justify-content-center font-weight-bold">
-                            @if (Model.matches[i].StartingTime < DateTime.UtcNow.AddHours(3))
-                            {
-                                <p>BETS ARE CLOSED</p>
-                            }
-                            else
-                            {
-                                <button name="matchId" style="width: 55px; border-radius: 5px" class="btn-dark text-white" type="submit" value="@Model.matches[i].MatchId">
-                                    BET
-                                </button>
-                            }
+                            <form method="get" action="/Bets/MakeABet">
+                                @if (Model.matches[i].StartingTime < DateTime.UtcNow)
+                                {
+                                    <p>BETS ARE CLOSED</p>
+                                }
+                                else
+                                {
+                                    <button name="matchId" style="width: 55px; border-radius: 5px" class="btn-dark text-white" type="submit" value="@Model.matches[i].MatchId">
+                                        BET
+                                    </button>
+                                }
+                            </form>
+
                         </td>
                         <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
                             @Model.matches[i].FirstTeamOdds
@@ -58,9 +60,8 @@
                         <td class="col-lg-1 d-flex justify-content-center font-weight-bold">
                             @Model.matches[i].Result
                         </td>
-                    </form>
-                }
-            </tr>
-        </tbody>
-    </table>
-</div>
+                        }
+                </tr>
+            </tbody>
+        </table>
+    </div>

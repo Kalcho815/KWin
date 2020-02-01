@@ -5,6 +5,7 @@ using KWin.Models;
 using KWin.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace KWin.Services
 {
@@ -17,17 +18,17 @@ namespace KWin.Services
             this.context = context;
         }
 
-        public void CheckAndGiveResultsToMatches()
+        public async Task CheckAndGiveResultsToMatchesAsync()
         {
             var matches = context.Matches.ToList();
 
             foreach (var match in matches)
             {
-                if (match.StartingTime.AddMinutes(90) < DateTime.UtcNow.AddHours(3))
+                if (match.StartingTime.AddMinutes(90) < DateTime.UtcNow)
                 {
                     if (!match.Finished)
                     {
-                        match.Result = GiveRandomResult();
+                        match.Result = await GiveRandomResultAsync();
                         match.Finished = true;
                     }
                 }
@@ -39,7 +40,7 @@ namespace KWin.Services
             context.SaveChanges();
         }
 
-        private string GiveRandomResult()
+        private async Task<string> GiveRandomResultAsync()
         {
             Random percentages = new Random();
             Random goals = new Random();
@@ -76,28 +77,28 @@ namespace KWin.Services
             return resultToPass;
         }
 
-        public ICollection<Match> GetAllMatches()
+        public async Task<ICollection<Match>> GetAllMatchesAsync()
         {
             IList<Match> matches = this.context.Matches.Include(m=>m.MatchTeams).ThenInclude(mt=>mt.Team).ToList();
 
             return matches;
         }
 
-        public Match GetMatchById(string id)
+        public async Task<Match> GetMatchByIdAsync(string id)
         {
             var match = this.context.Matches.Where(m => m.Id == id).FirstOrDefault();
 
             return match;
         }
 
-        public void DeleteOldMatches()
+        public async Task DeleteOldMatchesAsync()
         {
             var matchesToDelete = context.Matches
-                .Where(m => m.Finished == true && m.StartingTime.AddDays(1) < DateTime.UtcNow.AddHours(3));
+                .Where(m => m.Finished == true && m.StartingTime.AddDays(1) < DateTime.UtcNow);
             context.Matches.RemoveRange(matchesToDelete);
         }
 
-        public ICollection<Match> GetUnfinishedMatches()
+        public async Task<ICollection<Match>> GetUnfinishedMatchesAsync()
         {
             IList<Match> matches = this.context.Matches
                 .Where(m=>m.Finished==false)

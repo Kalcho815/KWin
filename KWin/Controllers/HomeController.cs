@@ -2,9 +2,12 @@
 using KWin.Models.Matches;
 using KWin.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KWin.Controllers
 {
@@ -17,12 +20,12 @@ namespace KWin.Controllers
             this.matchesService = matchesService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            matchesService.DeleteOldMatches();
-            matchesService.CheckAndGiveResultsToMatches();
-
-            var matches = matchesService.GetUnfinishedMatches();
+            await matchesService.DeleteOldMatchesAsync();
+            await matchesService.CheckAndGiveResultsToMatchesAsync();
+            
+            var matches = await matchesService.GetUnfinishedMatchesAsync();
             var matchViewModels = new List<MatchViewModel>();
 
             foreach (var match in matches)
@@ -31,23 +34,25 @@ namespace KWin.Controllers
                 {
                     FirstTeamName = match.MatchTeams.ToArray()[0].Team.Name,
                     SecondTeamName = match.MatchTeams.ToArray()[1].Team.Name,
-                    MatchId = match.Id
+                    MatchId = match.Id,
+                    StartingTime = match.StartingTime
                 };
 
                 matchViewModels.Add(matchViewModel);
             }
+            
 
 
             return View(matchViewModels);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

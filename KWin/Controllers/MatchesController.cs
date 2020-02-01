@@ -21,9 +21,9 @@ namespace KWin.Controllers
         }
 
         [Authorize]
-        public IActionResult AllMatches()
+        public async Task<IActionResult> AllMatches()
         {
-            var allMatches = this.matchesService.GetAllMatches();
+            var allMatches = await this.matchesService.GetAllMatchesAsync();
             var matchesForView = new List<MatchViewModel>();
 
             foreach (var match in allMatches)
